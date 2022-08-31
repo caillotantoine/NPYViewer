@@ -128,18 +128,25 @@ class MainApp(QMainWindow):
             else:
                 self.tableWidget.setColumnCount(1)
 
+            self.progressbarWidget.setRange(0, data.shape[0])
+            self.progressbarWidget.setValue(0)
+
             # fill data
             if data.ndim > 1:
                 for i, value1 in enumerate(npyfile.data):  # loop over items in first column
                     for j, value in enumerate(value1):
                         self.tableWidget.setItem(i, j, QTableWidgetItem(str(value)))
+                    self.progressbarWidget.setValue(i)
             elif dtype_dim > 0:
                 for i, value1 in enumerate(npyfile.data):
                     for j, col_name in enumerate(npyfile.data.dtype.names):
                         self.tableWidget.setItem(i, j, QTableWidgetItem(str(value1[col_name])))
+                    self.progressbarWidget.setValue(i)
             else:
                 for i, value1 in enumerate(npyfile.data):  # loop over items in first column
                     self.tableWidget.setItem(i, 0, QTableWidgetItem(str(value1)))
+                    self.progressbarWidget.setValue(i)
+            self.progressbarWidget.setValue(self.progressbarWidget.maximum())
 
             self.npyfile = npyfile
             path = os.path.dirname(filename)
@@ -284,6 +291,8 @@ class MainApp(QMainWindow):
         self.tableWidget.setRowCount(100)
         self.tableWidget.setColumnCount(100)
 
+        self.progressbarWidget = QProgressBar()
+
         # table selection change
         # self.tableWidget.doubleClicked.connect(self.on_click)
 
@@ -294,6 +303,7 @@ class MainApp(QMainWindow):
         layout = QGridLayout()
         layout.addWidget(self.infoLb)
         layout.addWidget(self.tableWidget)
+        layout.addWidget(self.progressbarWidget)
         self.widget.setLayout(layout)
         self.setCentralWidget(self.widget)
         # self.tableWidget.setItesetTextAlignmentmDelegate(AlignDelegate())

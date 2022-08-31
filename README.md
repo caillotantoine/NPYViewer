@@ -15,12 +15,30 @@
 ### Installation:
 * Original development in Ubuntu 20.04 and Python 3.8.8
 * Also tested on Windows 10 and Ubuntu 22.04
-* pip3 install -r requirements.txt
 
+```bash
+pip3 install -r requirements.txt
+```
+
+#### Use a virtual environement:
+* tested with python 3.9
+```bash
+python3.9 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
 ### Execution:
-* python3 NPYViewer.py
+```bash
+python3 NPYViewer.py
+```
 
+#### Use a virtual environement:
+Firstly, navigate to the folder
+```bash
+source venv/bin/activate
+python NPYViewer.py
+```
 
 ### Current Features:
 * Open and view .npy files that contain 2D NumPy Arrays and Lists, as spreadsheets
